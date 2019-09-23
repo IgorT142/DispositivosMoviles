@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Quiz</string>
     <string name="action_settings">Settings</string>
-    <string name="opcion1"/>
-    <string name="opcion2"/>
-    <string name="opcion3"/>
-    <string name="opcion4"/>
-    <string name="pregunta"/>
+    <string name="opcion1" />
+    <string name="opcion2" />
+    <string name="opcion3" />
+    <string name="opcion4" />
+    <string name="pregunta" />
+    <string name="puntos" />
+    <string name="puntuacion">Puntuacion</string>
+    <string name="enviar">Enviar</string>
 </resources>
