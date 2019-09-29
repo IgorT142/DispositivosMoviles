@@ -21,17 +21,22 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String EXTRA_MESSAGE = "Practicas.Quiz.MESSAGE";
+    private ArrayList<Question> questions = new ArrayList<>(5);
     private int numPregunta = 0;
     private int puntos = 0;
     private String[] preguntas = {"¿Quién escribio la Odisea?","¿Cómo se llama la capital de Mongolia?",
                                     "Si 50 es el 100%, ¿cuánto es el 90%?","¿Cuál es el único mamífero capaz de volar?"};
-    private String[] preguntas1={"Homero","Ulan Bator","2","Pingüino"};
-    private String[] preguntas2={"Bart","Coruscant","45","Paloma"};
-    private String[] preguntas3={"Joaquín Sabina","Endor","90","Gato"};
-    private String[] preguntas4={"George R.R. Martin","Alcorcón","40","Murciélago"};
+    private String[] preguntas1={"Homero","Bart","Joaquin Sabina","George R.R. Martin"};
+    private String[] preguntas2={"Ulan Bator","Coruscant","Endor","Alcorcón"};
+    private String[] preguntas3={"2","45","90","40"};
+    private String[] preguntas4={"Pingüino","Paloma","Gato","Murciélago"};
     private String[][] respuestas ={preguntas1,preguntas2,preguntas3,preguntas4};
+    private int[] correctAnswers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart(){
         super.onStart();
+        int[] c = {findViewById(R.id.opc1).getId(),findViewById(R.id.opc1).getId(),findViewById(R.id.opc2).getId(),
+                findViewById(R.id.opc4).getId()};
+        correctAnswers = c;
+        for(int i = 0; i<4;i++){
+            Question question = new Question( preguntas[i],correctAnswers[i]);
+            question.setAnswers(respuestas[i]);
+            questions.add(question);
+        }
         initializeQuestions();
     }
 
@@ -80,26 +93,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     protected void initializeQuestions(){
-        RadioGroup opciones = findViewById(R.id.opciones);
-        opciones.clearCheck();
-        ((TextView) opciones.getChildAt(0)).setText(numPregunta+1 + "." + preguntas[numPregunta]);
-        for(int i = 0;i<4;i++){
-            ((RadioButton) opciones.getChildAt(i+1)).setText(respuestas[i][numPregunta]);
+        if (numPregunta<4) {
+            RadioGroup general = findViewById(R.id.opciones);
+            RadioGroup opciones = findViewById(R.id.radioButtons);
+            opciones.clearCheck();
+            ((TextView) general.getChildAt(0)).setText(numPregunta + 1 + "." + questions.get(numPregunta).getText());
+            for (int i = 0; i < 4; i++) {
+                ((RadioButton) opciones.getChildAt(i)).setText(questions.get(numPregunta).getAnswers()[i]);
+            }
+            TextView p = findViewById(R.id.puntos);
+            p.setText(Integer.toString(puntos));
         }
-        TextView p = findViewById(R.id.puntos);
-        p.setText(Integer.toString(puntos));
-        numPregunta++;
     }
 
     @Override
     public void onClick(View v) {
-        if(numPregunta==4){
-            Intent intent = new Intent(this, PointsActivity.class);
-            String message = ((Integer.toString(puntos)));
-            intent.putExtra(EXTRA_MESSAGE, message);
-            startActivity(intent);
-        }
-        RadioGroup opciones = findViewById(R.id.opciones);
+        RadioGroup opciones = findViewById(R.id.radioButtons);
         int idRespuestaEscogida = opciones.getCheckedRadioButtonId();
         if(numPregunta<4){
             if (checkAnswer(idRespuestaEscogida)){
@@ -109,29 +118,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "¡Fallaste!", Toast.LENGTH_SHORT).show();
                 puntos= puntos-2;
             }
+            numPregunta++;
             initializeQuestions();
         }
-        else
-            Toast.makeText(this,"Enhorabuena",Toast.LENGTH_LONG).show();
+        else {
+            Toast.makeText(this, "Enhorabuena", Toast.LENGTH_LONG).show();
+            numPregunta++;
+            initializeQuestions();
+        }
+        if(numPregunta==4){
+            Intent intent = new Intent(this, PointsActivity.class);
+            String message = ((Integer.toString(puntos)));
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+            numPregunta=0;
+            puntos=0;
+        }
     }
     protected boolean checkAnswer(int id) {
-        switch (numPregunta) {
-            case 0:
-                if (id == findViewById(R.id.opc1).getId())
-                    return true;
-            case 1:
-                if (id == findViewById(R.id.opc1).getId())
-                    return true;
-            case 2:
-                if (id == findViewById(R.id.opc2).getId())
-                    return true;
-            case 3:
-                if (id == findViewById(R.id.opc4).getId())
-                    return true;
-        }
-        return false;
-    }
-    public void sendMessage(View view){
-
+        if (id == questions.get(numPregunta).getCorrectAnswer())
+            return true;
+        else
+            return false;
     }
 }

@@ -33,42 +33,47 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/opc1"
-            android:layout_width="200dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/opcion1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="136dp" />
+        <RadioGroup
+            android:id="@+id/radioButtons"
+            android:layout_width="214dp"
+            android:layout_height="243dp">
 
-        <RadioButton
-            android:id="@+id/opc2"
-            android:layout_width="200dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/opcion2"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="136dp" />
+            <RadioButton
+                android:id="@+id/opc1"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/opcion1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="136dp" />
 
-        <RadioButton
-            android:id="@+id/opc3"
-            android:layout_width="200dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/opcion3"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="136dp" />
+            <RadioButton
+                android:id="@+id/opc2"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/opcion2"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="136dp" />
 
-        <RadioButton
-            android:id="@+id/opc4"
-            android:layout_width="200dp"
-            android:layout_height="28dp"
-            android:layout_marginTop="25dp"
-            android:text="@string/opcion4"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="136dp" />
+            <RadioButton
+                android:id="@+id/opc3"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/opcion3"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="136dp" />
 
+            <RadioButton
+                android:id="@+id/opc4"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/opcion4"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="136dp" />
+        </RadioGroup>
         <Button
             android:id="@+id/enviar"
             android:layout_width="74dp"

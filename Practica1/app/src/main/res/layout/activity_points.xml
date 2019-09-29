@@ -8,25 +8,41 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="273dp"
-        android:layout_height="53dp"
-        android:layout_marginTop="124dp"
-        android:text="Puntuación final "
-        android:textSize="35dp"
+        android:layout_width="306dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="179dp"
+        android:layout_marginBottom="316dp"
+        android:text="@string/puntuacion_final"
+        android:textSize="35sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/restart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/puntosTotal"
-        android:layout_width="83dp"
-        android:layout_height="68dp"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="196dp"
+        android:layout_width="102dp"
+        android:layout_height="67dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="180dp"
         android:text=""
-        android:textSize="20dp"
+        android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/restart"
+        android:layout_width="140dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="78dp"
+        android:text="@string/volver_a_jugar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
