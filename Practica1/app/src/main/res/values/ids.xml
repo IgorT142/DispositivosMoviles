@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="editText" type="id" />
+    <item name="spinner" type="id" />
+    <item name="checkBoxes" type="id" />
+    <item name="check4" type="id" />
+    <item name="check3" type="id" />
+    <item name="check2" type="id" />
+    <item name="check1" type="id" />
 </resources>

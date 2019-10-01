@@ -11,4 +11,10 @@
     <string name="enviar">Enviar</string>
     <string name="puntuacion_final">Puntuación final: </string>
     <string name="volver_a_jugar">Volver a jugar</string>
+    <string-array name="opcionesSpinner">
+        <item>Ulan Bator</item>
+        <item>Coruscant</item>
+        <item>Alcorcón</item>
+        <item>Endor</item>
+    </string-array>
 </resources>

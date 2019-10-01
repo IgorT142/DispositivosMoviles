@@ -10,8 +10,8 @@
 
     <RadioGroup
         android:id="@+id/opciones"
-        android:layout_width="314dp"
-        android:layout_height="491dp"
+        android:layout_width="371dp"
+        android:layout_height="600dp"
         android:layout_marginTop="60dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -36,7 +36,8 @@
         <RadioGroup
             android:id="@+id/radioButtons"
             android:layout_width="214dp"
-            android:layout_height="243dp">
+            android:layout_height="243dp"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@+id/opc1"
@@ -74,6 +75,59 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="136dp" />
         </RadioGroup>
+
+        <RadioGroup
+            android:id="@id/checkBoxes"
+            android:layout_width="214dp"
+            android:layout_height="243dp"
+            android:visibility="gone">
+
+            <CheckBox
+                android:id="@id/check1"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp" />
+
+            <CheckBox
+                android:id="@id/check2"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp" />
+
+            <CheckBox
+                android:id="@id/check3"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp" />
+
+            <CheckBox
+                android:id="@id/check4"
+                android:layout_width="200dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="25dp" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@id/spinner"
+            android:layout_width="214dp"
+            android:layout_height="243dp"
+            android:visibility="gone">
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RadioGroup>
+
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="287dp"
+            android:layout_height="106dp"
+            android:src="@drawable/paris"
+            android:visibility="gone" />
+
         <Button
             android:id="@+id/enviar"
             android:layout_width="74dp"
@@ -91,8 +145,8 @@
 
         <TextView
             android:id="@+id/puntos"
-            android:layout_width="20dp"
-            android:layout_height="34dp"
+            android:layout_width="41dp"
+            android:layout_height="39dp"
             android:layout_marginTop="15dp"
             android:text=""
             android:textSize="20dp"
