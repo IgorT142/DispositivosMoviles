@@ -7,4 +7,10 @@
     <item name="check3" type="id" />
     <item name="check2" type="id" />
     <item name="check1" type="id" />
+    <item name="black" type="id"/>
+    <item name="white" type="id"/>
+    <item name="purple" type="id"/>
+
+    <item name="textoNormal" type="id"/>
+    <item name="textoBig" type="id"/>
 </resources>

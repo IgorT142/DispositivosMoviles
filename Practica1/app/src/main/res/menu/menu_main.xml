@@ -9,14 +9,30 @@
         app:showAsAction="never" >
     <menu>
         <item
-            android:id="@+id/one"
-            android:title="One" />
+            android:id="@+id/black"
+            android:title="Gris" />
         <item
-            android:id="@+id/two"
-            android:title="Two"/>
+            android:id="@+id/white"
+            android:title="Blanco"/>
         <item
-            android:id="@+id/three"
-            android:title="Three"/>
+            android:id="@+id/purple"
+            android:title="Morado"/>
+
     </menu>
+    </item>
+    <item
+        android:id="@+id/textSize"
+        android:orderInCategory="100"
+        android:title="Tamaño de texto"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:id="@+id/textNormal"
+                android:title="Normal" />
+            <item
+                android:id="@+id/textBig"
+                android:title="Grande"/>
+
+        </menu>
     </item>
 </menu>

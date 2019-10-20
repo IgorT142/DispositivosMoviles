@@ -1,6 +1,9 @@
 package Practicas.Quiz;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -37,24 +40,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             "¿Qué libros están escritos por Stephen King?", "¿Cuál es el único mamífero capaz de volar?","¿A qué país corresponde esta imagen?"};
     private String[] preguntas1 = {"Homero", "Bart", "Joaquin Sabina", "George R.R. Martin"};
     private String[] preguntas2 = {"Ulan Bator", "Coruscant", "Endor", "Alcorcón"};
-    private String[] preguntas3 = {"IT", "Cementerio de animales", "El resplandor", "Posesión infernal"};
+    private String[] preguntas3 = {"IT", "Carrie", "El resplandor", "Posesión infernal"};
     private String[] preguntas4 = {"Pingüino", "Paloma", "Gato", "Murciélago"};
     private String[] preguntas5={"Suecia","Irlanda","Japón","Francia"};
     private String[][] respuestas = {preguntas1, preguntas2, preguntas3, preguntas4,preguntas5};
     private int[] correctAnswers;
-    private long spinnerSelectedItem;
+    private Long spinnerSelectedItem;
+    private Spinner spinner;
     private RadioGroup[] tipoPregunta;
-    private boolean[] b;
+    private int textSize;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Button enviar = findViewById(R.id.enviar);
         enviar.setOnClickListener(this);
+
+        SharedPreferences preferences = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
+        findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(preferences.getInt("r",255),preferences.getInt("g",255),
+                preferences.getInt("b",255)));
+        textSize=preferences.getInt("textSize",16);
     }
 
     @Override
@@ -76,6 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        this.spinner=spinner;
         clearCheckBoxes();
         initializeQuestions();
     }
@@ -98,6 +108,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_settings) {
             return true;
         }
+        int r=255,g=255,b=255;
+        if (id == R.id.black){
+            r= 87; g=76; b= 75;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        }
+        if (id == R.id.white){
+            r=255;g=255;b=255;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        }
+        if (id == R.id.purple){
+            r=154;g=67;b=161;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        }
+        if( id== R.id.textNormal){
+            textSize=16;
+            initializeQuestions();
+        }
+        if(id== R.id.textBig){
+            textSize=22;
+            initializeQuestions();
+        }
+        SharedPreferences preferences = getSharedPreferences("preferencias",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("r",r);
+        editor.putInt("g",g);
+        editor.putInt("b",b);
+        editor.putInt("textSize",textSize);
+        editor.commit();
 
         return super.onOptionsItemSelected(item);
     }
@@ -111,23 +149,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             RadioGroup opciones = tipoPregunta[numPregunta];
             opciones.clearCheck();
             ((TextView) general.getChildAt(0)).setText(numPregunta + 1 + "." + questions.get(numPregunta).getText());
+            ((TextView) general.getChildAt(0)).setTextSize(textSize);
             switch (numPregunta) {
-                case 0:
-                    for (int i = 0; i < 4; i++) {
-                        ((RadioButton) opciones.getChildAt(i)).setText(questions.get(numPregunta).getAnswers()[i]);
-                    }
-                    break;
                 case 2:
                     for (int i = 0; i < 4; i++) {
                         ((CheckBox) tipoPregunta[2].getChildAt(i)).setText(questions.get(numPregunta).getAnswers()[i]);
+                        ((CheckBox) tipoPregunta[2].getChildAt(i)).setTextSize(textSize);
+
                     }
                     break;
+                case 0:
                 case 3:
                 case 4:
                     for (int i = 0; i < 4; i++) {
                         ((RadioButton) opciones.getChildAt(i)).setText(questions.get(numPregunta).getAnswers()[i]);
+                        ((RadioButton) opciones.getChildAt(i)).setTextSize(textSize);
                     }
                     break;
+                case 1:
+                    for(int i=0;i<spinner.getChildCount();i++){
+                        ((TextView)spinner.getChildAt(i)).setTextSize(textSize);
+                    }
             }
             TextView p = findViewById(R.id.puntos);
             p.setText(Integer.toString(puntos));
