@@ -20,4 +20,8 @@
     <string name="nuevoJugador">Nuevo jugador</string>
     <string name="ranking">Ranking</string>
     <string name="escoger">Escoja su perfil :</string>
+    <string name="play">Jugar</string>
+    <string name="guardar">Guardar</string>
+    <string name="introduce_tu_nickname">Introduce tu nickname</string>
+    <string name="nuevo_jugador">Nuevo jugador</string>
 </resources>
