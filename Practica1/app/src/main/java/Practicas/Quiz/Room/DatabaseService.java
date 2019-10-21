@@ -31,6 +31,10 @@ public class DatabaseService {
         return playerDao.getPlayers();
     }
 
+    public Player getPlayerByNick(String nick){
+        return playerDao.getPlayerByNick(nick);
+    }
+
     public Player getPlayer(String id) {
         return playerDao.getPlayer(id);
     }

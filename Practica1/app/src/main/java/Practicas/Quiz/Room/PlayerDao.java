@@ -17,6 +17,9 @@ public interface PlayerDao {
     @Query("SELECT * FROM jugadores WHERE id LIKE :uuid")
     Player getPlayer(String uuid);
 
+    @Query("SELECT * FROM jugadores WHERE nick like :nick")
+    Player getPlayerByNick(String nick);
+
     @Insert
     void addPlayer(Player player);
 

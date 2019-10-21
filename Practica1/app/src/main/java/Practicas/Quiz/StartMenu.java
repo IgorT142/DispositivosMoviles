@@ -14,12 +14,14 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import Practicas.Quiz.Room.DatabaseService;
 
 public class StartMenu extends AppCompatActivity {
-
-    DatabaseService databaseService;
+    private RadioGroup p;
+    private DatabaseService databaseService;
+    int lastAdded;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +30,39 @@ public class StartMenu extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         databaseService = DatabaseService.get(this);
-        RadioGroup p = findViewById(R.id.perfiles);
+        p = findViewById(R.id.perfiles);
 
         for (int i = 0; i< databaseService.getPlayers().size();i++){
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(databaseService.getPlayers().get(i).getNick());
+            radioButton.setPadding(0,5,0,5);
             p.addView(radioButton);
-
+            lastAdded = databaseService.getPlayers().size();
         }
     }
 
     public void startGame(View v) {
-        startActivity(new Intent(this, MainActivity.class));
+        if(p.getCheckedRadioButtonId() == -1 )
+            Toast.makeText(this, "Selecciona un perfil primero", Toast.LENGTH_SHORT).show();
+        else {
+            RadioButton r = findViewById(p.getCheckedRadioButtonId());
+            startActivity(new Intent(this, MainActivity.class).putExtra("nick", r.getText()));
+        }
     }
 
     public void newPlayer(View v) {
         startActivity(new Intent(this, NewPlayer.class));
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        for (int i = lastAdded; i< databaseService.getPlayers().size();i++){
+            RadioButton radioButton = new RadioButton(this);
+            radioButton.setText(databaseService.getPlayers().get(i).getNick());
+            radioButton.setPadding(0,5,0,5);
+            p.addView(radioButton);
+            lastAdded++;
+        }
+    }
 }

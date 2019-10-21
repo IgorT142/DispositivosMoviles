@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, PointsActivity.class);
             String message = ((Integer.toString(puntos)));
             intent.putExtra(EXTRA_MESSAGE, message);
+            intent.putExtra("nick",getIntent().getStringExtra("nick"));
             startActivity(intent);
             numPregunta = 0;
             puntos = 0;
