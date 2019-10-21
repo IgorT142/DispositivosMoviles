@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import Practicas.Quiz.Room.DatabaseService;
+import Practicas.Quiz.Room.Player;
 
 public class PointsActivity extends AppCompatActivity implements View.OnClickListener {
     DatabaseService databaseService = DatabaseService.get(this);
@@ -31,11 +32,19 @@ public class PointsActivity extends AppCompatActivity implements View.OnClickLis
         SharedPreferences preferences = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         findViewById(R.id.points).setBackgroundColor(Color.rgb(preferences.getInt("r", 255), preferences.getInt("g", 255),
                 preferences.getInt("b", 255)));
-        databaseService.getPlayerByNick(nickName).setPoints(Integer.parseInt(points));
+        Player p = databaseService.getPlayerByNick(nickName);
+        if(p.getPoints()<Integer.parseInt(points)) {
+            p.setPoints(Integer.parseInt(points));
+            databaseService.updatePlayer(p);
+        }
     }
 
     @Override
     public void onClick(View v) {
         finish();
+    }
+
+    public void home(View v){
+        startActivity(new Intent(this, StartMenu.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

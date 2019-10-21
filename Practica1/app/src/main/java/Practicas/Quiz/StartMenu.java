@@ -32,17 +32,17 @@ public class StartMenu extends AppCompatActivity {
         databaseService = DatabaseService.get(this);
         p = findViewById(R.id.perfiles);
 
-        for (int i = 0; i< databaseService.getPlayers().size();i++){
+        for (int i = 0; i < databaseService.getPlayers().size(); i++) {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(databaseService.getPlayers().get(i).getNick());
-            radioButton.setPadding(0,5,0,5);
+            radioButton.setPadding(0, 5, 0, 5);
             p.addView(radioButton);
             lastAdded = databaseService.getPlayers().size();
         }
     }
 
     public void startGame(View v) {
-        if(p.getCheckedRadioButtonId() == -1 )
+        if (p.getCheckedRadioButtonId() == -1)
             Toast.makeText(this, "Selecciona un perfil primero", Toast.LENGTH_SHORT).show();
         else {
             RadioButton r = findViewById(p.getCheckedRadioButtonId());
@@ -54,13 +54,17 @@ public class StartMenu extends AppCompatActivity {
         startActivity(new Intent(this, NewPlayer.class));
     }
 
+    public void viewRanking(View v) {
+        startActivity(new Intent(this, Ranking.class));
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
-        for (int i = lastAdded; i< databaseService.getPlayers().size();i++){
+        for (int i = lastAdded; i < databaseService.getPlayers().size(); i++) {
             RadioButton radioButton = new RadioButton(this);
             radioButton.setText(databaseService.getPlayers().get(i).getNick());
-            radioButton.setPadding(0,5,0,5);
+            radioButton.setPadding(0, 5, 0, 5);
             p.addView(radioButton);
             lastAdded++;
         }

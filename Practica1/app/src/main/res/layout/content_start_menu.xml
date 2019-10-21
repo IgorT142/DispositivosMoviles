@@ -32,6 +32,7 @@
         android:layout_height="46dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="57dp"
+        android:onClick="viewRanking"
         android:text="@string/ranking"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/newPlayer"

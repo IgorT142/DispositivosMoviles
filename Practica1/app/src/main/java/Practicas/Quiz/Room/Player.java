@@ -12,11 +12,10 @@ public class Player {
     @NonNull
     private String id;
     private String nick;
-    private int points;
+    private int points = 0;
 
     public Player(String nick){
         this.nick = nick;
-        points = 0;
         id= UUID.randomUUID().toString();
     }
     @NonNull

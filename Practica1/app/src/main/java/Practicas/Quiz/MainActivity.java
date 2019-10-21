@@ -37,18 +37,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private int numPregunta = 0;
     private int puntos = 0;
     private String[] preguntas = {"¿Quién escribio la Odisea?", "¿Cómo se llama la capital de Mongolia?",
-            "¿Qué libros están escritos por Stephen King?", "¿Cuál es el único mamífero capaz de volar?","¿A qué país corresponde esta imagen?"};
+            "¿Qué libros están escritos por Stephen King?", "¿Cuál es el único mamífero capaz de volar?", "¿A qué país corresponde esta imagen?"};
     private String[] preguntas1 = {"Homero", "Bart", "Joaquin Sabina", "George R.R. Martin"};
     private String[] preguntas2 = {"Ulan Bator", "Coruscant", "Endor", "Alcorcón"};
     private String[] preguntas3 = {"IT", "Carrie", "El resplandor", "Posesión infernal"};
     private String[] preguntas4 = {"Pingüino", "Paloma", "Gato", "Murciélago"};
-    private String[] preguntas5={"Suecia","Irlanda","Japón","Francia"};
-    private String[][] respuestas = {preguntas1, preguntas2, preguntas3, preguntas4,preguntas5};
+    private String[] preguntas5 = {"Suecia", "Irlanda", "Japón", "Francia"};
+    private String[][] respuestas = {preguntas1, preguntas2, preguntas3, preguntas4, preguntas5};
     private int[] correctAnswers;
     private Long spinnerSelectedItem;
     private Spinner spinner;
     private RadioGroup[] tipoPregunta;
     private int textSize;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,19 +61,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         enviar.setOnClickListener(this);
 
         SharedPreferences preferences = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
-        findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(preferences.getInt("r",255),preferences.getInt("g",255),
-                preferences.getInt("b",255)));
-        textSize=preferences.getInt("textSize",16);
+        findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(preferences.getInt("r", 255), preferences.getInt("g", 255),
+                preferences.getInt("b", 255)));
+        textSize = preferences.getInt("textSize", 16);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         RadioGroup radioButtonType = findViewById(R.id.radioButtons);
-        RadioGroup[] tipoPregunta = {radioButtonType, findViewById(R.id.spinner), findViewById(R.id.checkBoxes), radioButtonType,radioButtonType};
+        RadioGroup[] tipoPregunta = {radioButtonType, findViewById(R.id.spinner), findViewById(R.id.checkBoxes), radioButtonType, radioButtonType};
         this.tipoPregunta = tipoPregunta;
         int[] c = {findViewById(R.id.opc1).getId(), findViewById(R.id.opc1).getId(), findViewById(R.id.opc2).getId(),
-                findViewById(R.id.opc4).getId(),findViewById(R.id.opc4).getId()};
+                findViewById(R.id.opc4).getId(), findViewById(R.id.opc4).getId()};
         correctAnswers = c;
         for (int i = 0; i < 5; i++) {
             Question question = new Question(preguntas[i], correctAnswers[i]);
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        this.spinner=spinner;
+        this.spinner = spinner;
         clearCheckBoxes();
         initializeQuestions();
     }
@@ -108,33 +109,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.action_settings) {
             return true;
         }
-        int r=255,g=255,b=255;
-        if (id == R.id.black){
-            r= 87; g=76; b= 75;
-            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        int r = 255, g = 255, b = 255;
+        if (id == R.id.black) {
+            r = 87;
+            g = 76;
+            b = 75;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r, g, b));
         }
-        if (id == R.id.white){
-            r=255;g=255;b=255;
-            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        if (id == R.id.white) {
+            r = 255;
+            g = 255;
+            b = 255;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r, g, b));
         }
-        if (id == R.id.purple){
-            r=154;g=67;b=161;
-            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r,g,b));
+        if (id == R.id.purple) {
+            r = 154;
+            g = 67;
+            b = 161;
+            findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(r, g, b));
         }
-        if( id== R.id.textNormal){
-            textSize=16;
+        if (id == R.id.textNormal) {
+            textSize = 16;
             initializeQuestions();
         }
-        if(id== R.id.textBig){
-            textSize=22;
+        if (id == R.id.textBig) {
+            textSize = 22;
             initializeQuestions();
         }
-        SharedPreferences preferences = getSharedPreferences("preferencias",Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("preferencias", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putInt("r",r);
-        editor.putInt("g",g);
-        editor.putInt("b",b);
-        editor.putInt("textSize",textSize);
+        editor.putInt("r", r);
+        editor.putInt("g", g);
+        editor.putInt("b", b);
+        editor.putInt("textSize", textSize);
         editor.commit();
 
         return super.onOptionsItemSelected(item);
@@ -142,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     protected void initializeQuestions() {
         if (numPregunta < 5) {
-            if (numPregunta==4)
+            if (numPregunta == 4)
                 findViewById(R.id.img).setVisibility(View.VISIBLE);
             tipoPregunta[numPregunta].setVisibility(View.VISIBLE);
             RadioGroup general = findViewById(R.id.opciones);
@@ -167,8 +174,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     break;
                 case 1:
-                    for(int i=0;i<spinner.getChildCount();i++){
-                        ((TextView)spinner.getChildAt(i)).setTextSize(textSize);
+                    for (int i = 0; i < spinner.getChildCount(); i++) {
+                        ((TextView) spinner.getChildAt(i)).setTextSize(textSize);
                     }
             }
             TextView p = findViewById(R.id.puntos);
@@ -182,27 +189,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tipoPregunta[numPregunta].setVisibility(View.GONE);
         RadioGroup opciones = tipoPregunta[numPregunta];
         int idRespuestaEscogida = opciones.getCheckedRadioButtonId();
-            if (numPregunta < 5) {
-                if (checkAnswer(idRespuestaEscogida)) {
-                    Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
-                    puntos = puntos + 3;
-                } else {
-                    Toast.makeText(this, "¡Fallaste!", Toast.LENGTH_SHORT).show();
-                    puntos = puntos - 2;
-                }
-                numPregunta++;
-                initializeQuestions();
+        if (numPregunta < 5) {
+            if (checkAnswer(idRespuestaEscogida)) {
+                Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
+                puntos = puntos + 3;
             } else {
-                Toast.makeText(this, "Enhorabuena", Toast.LENGTH_LONG).show();
-                numPregunta++;
-                initializeQuestions();
+                Toast.makeText(this, "¡Fallaste!", Toast.LENGTH_SHORT).show();
+                puntos = puntos - 2;
             }
+            numPregunta++;
+            initializeQuestions();
+        } else {
+            Toast.makeText(this, "Enhorabuena", Toast.LENGTH_LONG).show();
+            numPregunta++;
+            initializeQuestions();
+        }
         if (numPregunta == 5) {
             findViewById(R.id.img).setVisibility(View.GONE);
             Intent intent = new Intent(this, PointsActivity.class);
             String message = ((Integer.toString(puntos)));
             intent.putExtra(EXTRA_MESSAGE, message);
-            intent.putExtra("nick",getIntent().getStringExtra("nick"));
+            intent.putExtra("nick", getIntent().getStringExtra("nick"));
             startActivity(intent);
             numPregunta = 0;
             puntos = 0;
@@ -233,12 +240,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void clearCheckBoxes(){
-        for(int i =0;i<4;i++) {
+    private void clearCheckBoxes() {
+        for (int i = 0; i < 4; i++) {
             CheckBox ch = (CheckBox) ((RadioGroup) findViewById(R.id.checkBoxes)).getChildAt(i);
             ch.setChecked(false);
         }
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         spinnerSelectedItem = id;
