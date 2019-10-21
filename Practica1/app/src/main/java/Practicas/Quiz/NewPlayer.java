@@ -26,4 +26,10 @@ public class NewPlayer extends AppCompatActivity {
         databaseService.addPlayer(player);
         Toast.makeText(this, "Nuevo jugador " + et1.getText() + " añadido", Toast.LENGTH_SHORT).show();
     }
+
+
+    public void deletePlayers(View v){
+        databaseService.nukeTable();
+        Toast.makeText(this, "Todos los jugadores eliminados de la tabla", Toast.LENGTH_SHORT).show();
+    }
 }

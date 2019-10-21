@@ -46,4 +46,8 @@ public class DatabaseService {
     public void deletePlayer(Player player){
         playerDao.deletePlayer(player);
     }
+
+    public void nukeTable() {
+        playerDao.nukeTable();
+    }
 }

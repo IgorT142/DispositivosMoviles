@@ -23,6 +23,9 @@ public interface PlayerDao {
     @Delete
     void deletePlayer(Player player);
 
+    @Query("DELETE FROM jugadores")
+    void nukeTable();
+
     @Update
     void updatePlayer(Player player);
 }

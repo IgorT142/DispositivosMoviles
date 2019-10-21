@@ -50,14 +50,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ranking" />
 
-    <TextView
+    <RadioGroup
         android:id="@+id/perfiles"
         android:layout_width="226dp"
         android:layout_height="174dp"
         android:layout_marginBottom="199dp"
         android:scrollIndicators="right"
         android:scrollbarStyle="outsideInset"
-        android:text="TextView"
+        android:text=""
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/ranking"
         app:layout_constraintEnd_toEndOf="parent"
