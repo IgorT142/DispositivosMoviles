@@ -16,12 +16,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import Practicas.Quiz.Audio.AndroidAudio;
 import Practicas.Quiz.Room.DatabaseService;
 
 public class StartMenu extends AppCompatActivity {
     private RadioGroup p;
     private DatabaseService databaseService;
     int lastAdded;
+    AndroidAudio androidAudio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class StartMenu extends AppCompatActivity {
             p.addView(radioButton);
             lastAdded = databaseService.getPlayers().size();
         }
+        androidAudio = new AndroidAudio(this);
+    androidAudio.nuevaMusica("children.wav").play();
     }
 
     public void startGame(View v) {
