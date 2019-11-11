@@ -1,29 +1,28 @@
 package Practicas.Quiz;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import Practicas.Quiz.Audio.AndroidAudio;
+import Practicas.Quiz.Audio.Interfaces.Musica;
 import Practicas.Quiz.Room.DatabaseService;
 
 public class StartMenu extends AppCompatActivity {
     private RadioGroup p;
     private DatabaseService databaseService;
     int lastAdded;
-    AndroidAudio androidAudio;
+    private static AndroidAudio androidAudio;
+    private static Musica musica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,15 @@ public class StartMenu extends AppCompatActivity {
             p.addView(radioButton);
             lastAdded = databaseService.getPlayers().size();
         }
-        androidAudio = new AndroidAudio(this);
-    androidAudio.nuevaMusica("children.wav").play();
+        if (androidAudio==null)
+            androidAudio = new AndroidAudio(this);
+            musica = androidAudio.nuevaMusica("stella.mp3");
+            musica.play();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public void startGame(View v) {
@@ -50,6 +56,8 @@ public class StartMenu extends AppCompatActivity {
             Toast.makeText(this, "Selecciona un perfil primero", Toast.LENGTH_SHORT).show();
         else {
             RadioButton r = findViewById(p.getCheckedRadioButtonId());
+            if(musica.isPlaying())
+            musica.dispose();
             startActivity(new Intent(this, MainActivity.class).putExtra("nick", r.getText()));
         }
     }
@@ -60,6 +68,22 @@ public class StartMenu extends AppCompatActivity {
 
     public void viewRanking(View v) {
         startActivity(new Intent(this, Ranking.class));
+    }
+
+    public void startCamera(View v){
+        if (p.getCheckedRadioButtonId() == -1)
+            Toast.makeText(this, "Selecciona un perfil primero", Toast.LENGTH_SHORT).show();
+        else {
+            Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            musica.pause();
+            startActivityForResult(i, 0);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        musica.play();
     }
 
     @Override
@@ -73,4 +97,5 @@ public class StartMenu extends AppCompatActivity {
             lastAdded++;
         }
     }
+
 }
