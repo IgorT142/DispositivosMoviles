@@ -13,4 +13,5 @@
 
     <item name="textoNormal" type="id"/>
     <item name="textoBig" type="id"/>
+
 </resources>
