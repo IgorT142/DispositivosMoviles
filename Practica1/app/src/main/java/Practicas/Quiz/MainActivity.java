@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,17 +18,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.PopupMenu;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+import Practicas.Quiz.Audio.AndroidAudio;
+import Practicas.Quiz.Audio.Interfaces.Musica;
+import Practicas.Quiz.Audio.Interfaces.Sonido;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     public static final String EXTRA_MESSAGE = "Practicas.Quiz.MESSAGE";
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner spinner;
     private RadioGroup[] tipoPregunta;
     private int textSize;
+    private AndroidAudio androidAudio;
+    private Musica musica;
+    private Sonido[] sounds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.mainLayout).setBackgroundColor(Color.rgb(preferences.getInt("r", 255), preferences.getInt("g", 255),
                 preferences.getInt("b", 255)));
         textSize = preferences.getInt("textSize", 16);
+        androidAudio = new AndroidAudio(this);
+        sounds = new Sonido[2];
+        sounds[1] = androidAudio.nuevoSonido("nffValid.wav");
+        sounds[0] = androidAudio.nuevoSonido("NFF-no-go.wav");
+
     }
 
     @Override
@@ -89,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         this.spinner = spinner;
         clearCheckBoxes();
         initializeQuestions();
+        musica = androidAudio.nuevaMusica("philoa.mp3");
+        musica.play();
     }
 
     @Override
@@ -106,6 +116,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if(id== R.id.sound){
+            if(musica.isPlaying()) {
+                item.setIcon(R.drawable.ic_volume_off_black_24dp);
+                musica.pause();
+            } else {
+                item.setIcon(R.drawable.ic_audiotrack_black_24dp);
+                musica.play();
+            }
+        }
         if (id == R.id.action_settings) {
             return true;
         }
@@ -191,9 +210,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int idRespuestaEscogida = opciones.getCheckedRadioButtonId();
         if (numPregunta < 5) {
             if (checkAnswer(idRespuestaEscogida)) {
+                sounds[1].play(0.05f);
                 Toast.makeText(this, "¡Correcto!", Toast.LENGTH_SHORT).show();
                 puntos = puntos + 3;
             } else {
+                sounds[0].play(0.05f);
                 Toast.makeText(this, "¡Fallaste!", Toast.LENGTH_SHORT).show();
                 puntos = puntos - 2;
             }
@@ -210,6 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String message = ((Integer.toString(puntos)));
             intent.putExtra(EXTRA_MESSAGE, message);
             intent.putExtra("nick", getIntent().getStringExtra("nick"));
+            musica.dispose();
             startActivity(intent);
             numPregunta = 0;
             puntos = 0;

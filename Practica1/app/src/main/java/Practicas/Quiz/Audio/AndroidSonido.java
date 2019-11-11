@@ -4,7 +4,7 @@ import android.media.SoundPool;
 
 import Practicas.Quiz.Audio.Interfaces.Sonido;
 
-public class AndroidSonido implements Sonido {
+public class AndroidSonido implements Sonido{
     int soundId;
     SoundPool soundPool;
 
@@ -22,4 +22,5 @@ public class AndroidSonido implements Sonido {
     public void dispose() {
         soundPool.unload(soundId);
     }
+
 }
